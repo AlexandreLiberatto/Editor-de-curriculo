@@ -110,7 +110,7 @@ body {
     font-size: 18px;
     border: none;
     padding-bottom: 3px;
-    border-bottom: 2px greenyellow solid;
+    border-bottom: 2px #1abc9c solid;
 }
 
 .skill {
