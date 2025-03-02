@@ -1,3 +1,4 @@
+// Função para baixar o currículo em PDF
 function printpdf() {
     const content = document.getElementById("resume");
     html2pdf(content, {
@@ -6,25 +7,48 @@ function printpdf() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const expContainer = document.getElementById("experience");
-    const addExpBtn = document.getElementById("expadd");
-    const remExpBtn = document.getElementById("exprem");
+// Função para resetar todos os campos
+function resetAll() {
+    if (confirm("Tem certeza que deseja resetar o currículo?")) {
+        document.querySelectorAll('[contenteditable="true"]').forEach(field => {
+            field.textContent = "";
+        });
+        document.getElementById("profile-image").src = "https://via.placeholder.com/100";
+    }
+}
 
-    addExpBtn.addEventListener("click", function () {
-        let newExp = document.createElement("div");
-        newExp.classList.add("expblock");
-        newExp.innerHTML = `
-            <span><input type="checkbox" class="input-checkbox"></span>
-            <span class="experience-head" contenteditable="true"><b>SEU CARGO</b></span>
-            <div><span contenteditable="true">Nome da Empresa</span> - <span contenteditable="true">Ano</span></div>
-        `;
-        expContainer.appendChild(newExp);
-    });
+// Upload de imagem de perfil
+document.getElementById("profile-upload").addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById("profile-image").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+});
 
-    remExpBtn.addEventListener("click", function () {
-        if (expContainer.children.length > 1) {
-            expContainer.removeChild(expContainer.lastElementChild);
-        }
-    });
+// Arrastar e soltar para upload de imagem
+const profileImageContainer = document.querySelector(".profile-image-container");
+profileImageContainer.addEventListener("dragover", (event) => {
+    event.preventDefault();
+    profileImageContainer.style.border = "2px dashed #1abc9c";
+});
+
+profileImageContainer.addEventListener("dragleave", () => {
+    profileImageContainer.style.border = "none";
+});
+
+profileImageContainer.addEventListener("drop", (event) => {
+    event.preventDefault();
+    profileImageContainer.style.border = "none";
+    const file = event.dataTransfer.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById("profile-image").src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 });
