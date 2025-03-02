@@ -16,6 +16,7 @@
             <input type="hidden" id="custinfo" name="custinfo">
             <button class="navbtn" aria-label="Salvar Currículo"><i class="fas fa-save"></i></button>
         </form>
+        <button class="navbtn" onclick="resetAll()" aria-label="Resetar Currículo"><i class="fas fa-undo"></i></button>
         <button class="navbtn" href="#" aria-label="Página Inicial"><i class="fas fa-home"></i></button>
     </div>
 
@@ -23,14 +24,33 @@
         <section id="print">
             <div class="head">
                 <div class="main">
+                    <div class="profile-image-container">
+                        <label for="profile-upload" class="profile-image-label">
+                            <img id="profile-image" src="https://via.placeholder.com/100" alt="Foto de Perfil">
+                            <input type="file" id="profile-upload" accept="image/*" style="display: none;">
+                        </label>
+                    </div>
                     <span class="name" contenteditable="true">SEU NOME</span>
                     <div class="post" contenteditable="true">SUA ATUAÇÃO</div>
                 </div>
                 <div class="contacts">
-                    <span contenteditable="true">(48) 991604054</span><span class="symbol"><i class="fas fa-phone"></i></span><br>
-                    <span contenteditable="true">seuemail@gmail.com</span><span class="symbol"><i class="fas fa-envelope"></i></span><br>
-                    <span contenteditable="true">linkedin/username.com</span><span class="symbol"><i class="fab fa-linkedin"></i></span><br>
-                    <span contenteditable="true">Florianópolis, Santa Catarina - Brasil</span><span class="symbol"><i class="fas fa-map-marker-alt"></i></span>
+                    <div class="contact-item">
+                        <span class="symbol"><i class="fas fa-phone"></i></span>
+                        <span class="prefix">(+55)</span>
+                        <span contenteditable="true">(48) 991604054</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="symbol"><i class="fas fa-envelope"></i></span>
+                        <span contenteditable="true">seuemail@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="symbol"><i class="fab fa-linkedin"></i></span>
+                        <span contenteditable="true">linkedin/username.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="symbol"><i class="fas fa-map-marker-alt"></i></span>
+                        <span contenteditable="true">Florianópolis, Santa Catarina - Brasil</span>
+                    </div>
                 </div>
             </div>
             <div class="line"></div>
