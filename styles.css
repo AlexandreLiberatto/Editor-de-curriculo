@@ -34,7 +34,29 @@ body {
 
 .head {
     display: grid;
-    grid-template-columns: 3fr 1.5fr;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 20px;
+}
+
+.profile-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.profile-image-label img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #1abc9c;
+    transition: transform 0.3s ease-in-out;
+}
+
+.profile-image-label img:hover {
+    transform: scale(1.1);
 }
 
 .head .main .name {
@@ -53,21 +75,15 @@ body {
     font-family: 'Barlow', sans-serif;
 }
 
-.head .contacts {
-    text-align: right;
-    padding-top: 7px;
+.contacts .contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
-.head .contacts .content {
-    font-weight: 500;
-    padding-right: 5px;
-}
-
-.head .contacts .symbol {
+.contacts .prefix {
     margin-right: 5px;
-    font-size: 15px;
-    width: 17px;
-    height: 17px;
+    font-weight: bold;
 }
 
 .line {
@@ -156,5 +172,24 @@ body {
 
     .mainbody .border {
         display: none;
+    }
+
+    .nav {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        background: #fff;
+        padding: 10px;
+        border-radius: 50px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbtn {
+        height: 40px;
+        width: 40px;
+        font-size: 18px;
     }
 }
