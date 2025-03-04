@@ -140,28 +140,34 @@ button {
 
 .navbtn {
     position: fixed;
-    top: 40%;
+    top: 20%;
     left: 4%;
-    transform: translate(-40%, -4%);
+    transform: translate(-50%, -50%);
     height: 60px;
     width: 60px;
     border-radius: 50%;
     border: #fff 2px solid;
     transition: 300ms ease-in-out;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    z-index: 1000;
+}
+
+.navbtn:nth-child(1) {
+    top: 20%;
 }
 
 .navbtn:nth-child(2) {
-    top: 50%;
-    left: 4.4%;
-    transform: translate(-50%, -4.4%);
+    top: 30%;
 }
 
 .navbtn:nth-child(3) {
-    top: 60%;
-    left: 4.8%;
-    transform: translate(-60%, -4.8%);
+    top: 40%;
 }
+
+.navbtn:nth-child(4) {
+    top: 50%;
+}
+
 
 .navbtn:hover {
     background-color: black;

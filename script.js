@@ -307,4 +307,64 @@ function adjustForPrint() {
         }
     });
 }
+
+// Função para recarregar a página
+function reloadPage() {
+     // Exibe a caixa de confirmação
+     const userConfirmed = confirm("Você tem certeza que deseja apagar tudo? Esta ação não pode ser desfeita.");
+
+     if (userConfirmed) {
+       // O usuário confirmou, então apaga tudo
+       window.location.reload();
+       } else {
+        // O usuário cancelou a ação
+        alert("Ação cancelada. Nenhum dado foi apagado.");
+      }
+    
+  }
+  
+  // Adiciona um evento de clique ao botão
+  document.getElementById("reloadButton").addEventListener("click", reloadPage);
+
+
+  function saveToLocalStorage() {
+    // Seleciona o elemento principal que contém todos os dados
+    const resumeContent = document.getElementById("resume");
+  
+    // Salva o HTML interno do elemento no localStorage
+    localStorage.setItem("resumeData", resumeContent.innerHTML);
+  
+    // Exibe uma mensagem de sucesso (opcional)
+    alert("Dados salvos com sucesso!");
+  }
+
+  function loadFromLocalStorage() {
+    const savedData = localStorage.getItem("resumeData");
+  
+    if (!savedData) {
+      // Se não houver dados no localStorage, exibe um alerta
+      alert("Não há dados salvos no LocalStorage!");
+      return; // Sai da função e não faz mais nada
+    }
+  
+    // Se houver dados, carrega-os na página
+    const resumeContent = document.getElementById("resume");
+    resumeContent.innerHTML = savedData;
+  
+    // Aplica formatações adicionais, se necessário
+    applyDefaultFormatting();
+  
+    alert("Dados recuperados com sucesso!");
+  }
+  
+  // Função para garantir que a formatação padrão seja aplicada
+  function applyDefaultFormatting() {
+    // Certifique-se de que todos os elementos tenham as classes e estilos corretos
+    document.querySelectorAll(".input-checkbox").forEach(input => {
+      input.style.display = "inline-block"; // Exemplo de ajuste de estilo
+    });
+  
+    // Adicione quaisquer outras correções de formatação aqui
+  }
+
 window.addEventListener("load", adjustForPrint);

@@ -23,14 +23,22 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-    <div class="nav">
-    <button id="cmd" onclick="printpdf()" class="navbtn"><i class="fas fa-download"></i></button>
-    <form>
-    <input type="hidden" id="custinfo" name="custinfo">
-    <button class="navbtn"><i class="fas fa-save"></i></button>
-    </form> 
-    <button class="navbtn" href=""><i class="fas fa-home"></i></button>
-    </div>
+        <div class="nav">
+            <button id="cmd" onclick="printpdf()" class="navbtn"><i class="fas fa-download"></i></button>
+            <form>
+                <input type="hidden" id="custinfo" name="custinfo">
+                <button type="button" class="navbtn" onclick="saveToLocalStorage()">
+                    <i class="fas fa-save"></i>
+                </button>
+            </form>
+            
+            <button class="navbtn" onclick="loadFromLocalStorage()">
+                <i class="fas fa-cloud-download-alt"></i>
+            </button>
+            <button class="navbtn" onclick="reloadPage()">
+                <i class="fas fa-redo"></i>
+            </button>
+        </div>
         
     <div class="resume" id="resume">
         <section id="print">
