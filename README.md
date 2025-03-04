@@ -22,38 +22,35 @@ Recursos principais:
 
 ## **Instruções de Uso**
 
-### **1. Configuração Inicial**
+### **Configuração Inicial**
 1. Clone ou baixe este repositório para sua máquina local.
 2. Abra o arquivo `index.html` em qualquer navegador moderno (Google Chrome, Firefox, etc.).
 3. O editor estará pronto para uso imediatamente.
 
-### **2. Personalizando o Currículo**
+### **Personalizando o Currículo**
 - **Nome e Atuação**: Clique nos campos "SEU NOME" e "SUA ATUAÇÃO" para editar.
 - **Foto de Perfil**: Clique na imagem de perfil ou arraste e solte uma nova imagem.
 - **Contatos**: Edite os campos de telefone, e-mail, LinkedIn e localização.
 - **Seções**: Use os botões "+" e "-" para adicionar ou remover itens nas seções de Experiência, Habilidades, Projetos, Idiomas e Educação.
 
-### **3. Baixando o Currículo**
+### **Baixando o Currículo**
 - Clique no botão de download (`<i class="fas fa-download"></i>`) para gerar o currículo em PDF.
 - O PDF será salvo automaticamente no seu dispositivo.
-
-### **4. Resetando o Currículo**
-- Clique no botão de reset (`<i class="fas fa-undo"></i>`) para limpar todos os campos e começar novamente.
 
 ---
 
 ## **Funcionalidades do Código**
 
-### **1. Funções Principais**
+### **Funções Principais**
 - **Adicionar/Remover Seções**: Use funções como `addExp()`, `remExp()`, `addLang()`, `remLang()` para gerenciar dinamicamente as seções do currículo.
 - **Salvar Progresso**: A função `saveresume()` salva o conteúdo atual do currículo para evitar perda de dados.
 - **Responsividade Dinâmica**: A função `updateMobileView()` ajusta o layout para diferentes tamanhos de tela.
 
-### **2. Upload de Imagem**
-- O código suporta upload de imagem via `<input type="file">` ou arrastar e soltar.
+### **Upload de Imagem**
+- O código suporta upload de imagem via `<input type="file">`.
 - A função `FileReader` é usada para carregar a imagem selecionada.
 
-### **3. Impressão e Download**
+### **Download**
 - A biblioteca `html2pdf.js` é usada para converter o currículo em PDF.
 - Antes da impressão, os botões e checkboxes são ocultados para garantir um layout limpo.
 
@@ -75,7 +72,7 @@ Recursos principais:
 
 ## **Funcionalidades Futuras**
 
-Planejamos adicionar ainda mais recursos ao editor de currículo:
+Adicionar ainda mais recursos ao editor de currículo:
 - **Modelos de Currículo**: Escolha entre diferentes layouts predefinidos.
 - **Validação de Campos**: Alertas para campos obrigatórios não preenchidos.
 - **Dark Mode**: Alternar entre modos claro e escuro.
