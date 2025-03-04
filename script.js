@@ -24,6 +24,7 @@ function printpdf() {
             input.style.display = "inline-block";
         });
     });
+    
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -65,7 +66,7 @@ function remedu(event) {
   const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
   const array = Array.from(allInputCheckboxes);
   if (array.length === 0) {
-      alert("Não há nada para deletar!")
+    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
   }
   else {
       console.log(array);
@@ -75,7 +76,7 @@ function remedu(event) {
               element.parentElement.parentElement.remove();
           }
       })
-      if (val === 0) alert("Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
+      if (val === 0) mostrarAlertaPersonalizado("Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
   }
   saveresume();
 }
@@ -93,7 +94,7 @@ function remskill(event) {
   const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
   const array = Array.from(allInputCheckboxes);
   if (array.length === 0) {
-      alert("Não há nada para deletar!")
+    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
   }
   else {
       console.log(array);
@@ -103,7 +104,7 @@ function remskill(event) {
               element.parentElement.parentElement.remove();
           }
       })
-      if (val === 0) alert("Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
+      if (val === 0) mostrarAlertaPersonalizado("Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
   }
   saveresume();
 }
@@ -120,7 +121,7 @@ function remLang(event) {
   const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
   const array = Array.from(allInputCheckboxes);
   if (array.length === 0) {
-      alert("Não há nada para deletar!")
+    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
   }
   else {
       console.log(array);
@@ -130,7 +131,7 @@ function remLang(event) {
               element.parentElement.parentElement.remove();
           }
       })
-      if (val === 0) alert("Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
+      if (val === 0) mostrarAlertaPersonalizado("Ateção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
   }
   saveresume();
 }
@@ -147,7 +148,7 @@ function remAch(event) {
   const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
   const array = Array.from(allInputCheckboxes);
   if (array.length === 0) {
-      alert("Não há nada para deletar!")
+    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
   }
   else {
       console.log(array);
@@ -157,7 +158,7 @@ function remAch(event) {
               element.parentElement.parentElement.remove();
           }
       })
-      if (val === 0) alert("Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
+      if (val === 0) mostrarAlertaPersonalizado("Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
   }
   saveresume();
 }
@@ -174,7 +175,7 @@ function remInt(event) {
   const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
   const array = Array.from(allInputCheckboxes);
   if (array.length === 0) {
-      alert("Não há nada para deletar!")
+    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
   }
   else {
       array.forEach(element => {
@@ -183,7 +184,7 @@ function remInt(event) {
               element.parentElement.parentElement.remove();
           }
       })
-      if (val === 0) alert("Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
+      if (val === 0) mostrarAlertaPersonalizado("Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
   }
   saveresume();
 }
@@ -203,7 +204,7 @@ function addsec() {
       maxNewSection = maxNewSection + 1;
   }
   else {
-      alert("Somente três novos tópicos podem ser adicionados!")
+    mostrarAlertaPersonalizado("Atenção!", "Somente três novos tópicos podem ser adicionados!")
 
   }
   saveresume();
@@ -213,7 +214,7 @@ function remsec(event) {
   const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
   const array = Array.from(allInputCheckboxes);
   if (array.length === 0) {
-      alert("Não há nada para deletar!")
+    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
   }
   else {
       console.log(array);
@@ -224,7 +225,7 @@ function remsec(event) {
               element.parentElement.parentElement.remove();
           }
       })
-      if (val === 0) alert("Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
+      if (val === 0) alermostrarAlertaPersonalizado("Atenção!","Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
   }
   saveresume();
 }
@@ -309,19 +310,27 @@ function adjustForPrint() {
 }
 
 // Função para recarregar a página
-function reloadPage() {
-     // Exibe a caixa de confirmação
-     const userConfirmed = confirm("Você tem certeza que deseja apagar tudo? Esta ação não pode ser desfeita.");
+async function reloadPage() {
+    if (!haModificacoes()) {
+        // Se não houver modificações, exibe a mensagem
+        await alertaPersonalizadoComOpcaoDeCancelar("Aviso!", "Não há nada para apagar.");
+        return;
+    }
 
-     if (userConfirmed) {
-       // O usuário confirmou, então apaga tudo
-       window.location.reload();
-       } else {
+    // Se houver modificações, exibe a confirmação
+    const userConfirmed = await alertaPersonalizadoComOpcaoDeCancelar(
+        "Aviso!",
+        "Você tem certeza que deseja apagar tudo? Esta ação não pode ser desfeita."
+    );
+
+    if (userConfirmed) {
+        // O usuário confirmou, então recarrega a página
+        window.location.reload();
+    } else {
         // O usuário cancelou a ação
-        alert("Ação cancelada. Nenhum dado foi apagado.");
-      }
-    
-  }
+        await mostrarAlertaPersonalizado("Ação cancelada!", "Nenhum dado foi apagado.");
+    }
+}
   
   // Adiciona um evento de clique ao botão
   document.getElementById("reloadButton").addEventListener("click", reloadPage);
@@ -335,7 +344,7 @@ function reloadPage() {
     localStorage.setItem("resumeData", resumeContent.innerHTML);
   
     // Exibe uma mensagem de sucesso (opcional)
-    alert("Dados salvos com sucesso!");
+    mostrarAlertaPersonalizado("Aviso!", "Dados salvos com sucesso!");
   }
 
   function loadFromLocalStorage() {
@@ -343,7 +352,7 @@ function reloadPage() {
   
     if (!savedData) {
       // Se não houver dados no localStorage, exibe um alerta
-      alert("Não há dados salvos no LocalStorage!");
+      mostrarAlertaPersonalizado("Atenção!", "Não há dados salvos no LocalStorage!");
       return; // Sai da função e não faz mais nada
     }
   
@@ -354,7 +363,7 @@ function reloadPage() {
     // Aplica formatações adicionais, se necessário
     applyDefaultFormatting();
   
-    alert("Dados recuperados com sucesso!");
+    mostrarAlertaPersonalizado("Atenção!", "Dados recuperados com sucesso!");
   }
   
   // Função para garantir que a formatação padrão seja aplicada
@@ -366,7 +375,7 @@ function reloadPage() {
   
     // Adicione quaisquer outras correções de formatação aqui
   }
-
+//============= Menu Hamburguer ============
   function toggleMenu() {
     const mobileNav = document.getElementById("mobileNav");
     mobileNav.classList.toggle("active");
@@ -380,5 +389,179 @@ document.addEventListener("click", function(event) {
         mobileNav.classList.remove("active");
     }
 });
+//============= Menu Hamburguer ============
+
+
+//=========== Alçerta Personalizado =============
+
+function mostrarAlertaPersonalizado(titulo, mensagem) {
+    // Cria o overlay (fundo escurecido)
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    overlay.style.display = 'flex';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.zIndex = '1000';
+
+    // Cria a caixa do alerta
+    const alertaBox = document.createElement('div');
+    alertaBox.style.backgroundColor = '#fff';
+    alertaBox.style.padding = '20px';
+    alertaBox.style.borderRadius = '10px';
+    alertaBox.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+    alertaBox.style.maxWidth = '400px';
+    alertaBox.style.width = '100%';
+    alertaBox.style.textAlign = 'center';
+
+    // Cria o título
+    const tituloElemento = document.createElement('h2');
+    tituloElemento.textContent = titulo;
+    tituloElemento.style.marginTop = '0';
+    tituloElemento.style.fontSize = '24px';
+    tituloElemento.style.color = '#333';
+
+    // Cria a mensagem
+    const mensagemElemento = document.createElement('p');
+    mensagemElemento.textContent = mensagem;
+    mensagemElemento.style.fontSize = '16px';
+    mensagemElemento.style.color = '#666';
+    mensagemElemento.style.margin = '20px 0';
+
+    // Cria o botão de fechar
+    const botaoFechar = document.createElement('button');
+    botaoFechar.textContent = 'Fechar';
+    botaoFechar.style.backgroundColor = '#007bff';
+    botaoFechar.style.color = '#fff';
+    botaoFechar.style.border = 'none';
+    botaoFechar.style.padding = '10px 20px';
+    botaoFechar.style.borderRadius = '5px';
+    botaoFechar.style.cursor = 'pointer';
+    botaoFechar.style.fontSize = '16px';
+    botaoFechar.onclick = function () {
+        document.body.removeChild(overlay); // Remove o alerta ao clicar no botão
+    };
+
+    // Adiciona os elementos à caixa do alerta
+    alertaBox.appendChild(tituloElemento);
+    alertaBox.appendChild(mensagemElemento);
+    alertaBox.appendChild(botaoFechar);
+
+    // Adiciona a caixa do alerta ao overlay
+    overlay.appendChild(alertaBox);
+
+    // Adiciona o overlay ao body
+    document.body.appendChild(overlay);
+}
+
+// Exemplo de uso:
+// mostrarAlertaPersonalizado('Título do Alerta', 'Esta é uma mensagem de exemplo.');
+
+//=========== Alçerta Personalizado =============
+
+
+
+//=========== Alçerta Personalizado com Opção de Cancelar=============
+function alertaPersonalizadoComOpcaoDeCancelar(titulo, mensagem) {
+    return new Promise((resolve) => {
+        // Cria o overlay (fundo escurecido)
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        overlay.style.display = 'flex';
+        overlay.style.justifyContent = 'center';
+        overlay.style.alignItems = 'center';
+        overlay.style.zIndex = '1000';
+
+        // Cria a caixa do alerta
+        const alertaBox = document.createElement('div');
+        alertaBox.style.backgroundColor = '#fff';
+        alertaBox.style.padding = '20px';
+        alertaBox.style.borderRadius = '10px';
+        alertaBox.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+        alertaBox.style.maxWidth = '400px';
+        alertaBox.style.width = '100%';
+        alertaBox.style.textAlign = 'center';
+
+        // Cria o título
+        const tituloElemento = document.createElement('h2');
+        tituloElemento.textContent = titulo;
+        tituloElemento.style.marginTop = '0';
+        tituloElemento.style.fontSize = '24px';
+        tituloElemento.style.color = '#333';
+
+        // Cria a mensagem
+        const mensagemElemento = document.createElement('p');
+        mensagemElemento.textContent = mensagem;
+        mensagemElemento.style.fontSize = '16px';
+        mensagemElemento.style.color = '#666';
+        mensagemElemento.style.margin = '20px 0';
+
+        // Cria o botão de confirmar
+        const botaoConfirmar = document.createElement('button');
+        botaoConfirmar.textContent = 'Confirmar';
+        botaoConfirmar.style.backgroundColor = '#007bff';
+        botaoConfirmar.style.color = '#fff';
+        botaoConfirmar.style.border = 'none';
+        botaoConfirmar.style.padding = '10px 20px';
+        botaoConfirmar.style.borderRadius = '5px';
+        botaoConfirmar.style.cursor = 'pointer';
+        botaoConfirmar.style.fontSize = '16px';
+        botaoConfirmar.style.marginRight = '10px';
+        botaoConfirmar.onclick = function () {
+            document.body.removeChild(overlay); // Remove o alerta
+            resolve(true); // Resolve a promessa com true (confirmado)
+        };
+
+        // Cria o botão de cancelar
+        const botaoCancelar = document.createElement('button');
+        botaoCancelar.textContent = 'Cancelar';
+        botaoCancelar.style.backgroundColor = '#dc3545';
+        botaoCancelar.style.color = '#fff';
+        botaoCancelar.style.border = 'none';
+        botaoCancelar.style.padding = '10px 20px';
+        botaoCancelar.style.borderRadius = '5px';
+        botaoCancelar.style.cursor = 'pointer';
+        botaoCancelar.style.fontSize = '16px';
+        botaoCancelar.onclick = function () {
+            document.body.removeChild(overlay); // Remove o alerta
+            resolve(false); // Resolve a promessa com false (cancelado)
+        };
+
+        // Adiciona os elementos à caixa do alerta
+        alertaBox.appendChild(tituloElemento);
+        alertaBox.appendChild(mensagemElemento);
+        alertaBox.appendChild(botaoConfirmar);
+        alertaBox.appendChild(botaoCancelar);
+
+        // Adiciona a caixa do alerta ao overlay
+        overlay.appendChild(alertaBox);
+
+        // Adiciona o overlay ao body
+        document.body.appendChild(overlay);
+    });
+}
+
+// Função para verificar se há modificações nos campos
+function haModificacoes() {
+    // Exemplo: Verifica se algum campo de input foi alterado
+    const inputs = document.querySelectorAll('input');
+    for (const input of inputs) {
+        if (input.value !== input.defaultValue) {
+            return true; // Há modificações
+        }
+    }
+    return false; // Não há modificações
+}
+
+//=========== Alçerta Personalizado com Opção de Cancelar=============
 
 window.addEventListener("load", adjustForPrint);

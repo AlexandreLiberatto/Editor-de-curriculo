@@ -378,7 +378,7 @@ button {
     }
 }
 
-/* Estilo do Menu Hambúrguer */
+/*========== Menu Hambúrguer =============*/
 .hamburger-menu {
     display: none; /* Esconder por padrão */
     flex-direction: column;
@@ -443,3 +443,5 @@ button {
         display: block; /* Mostrar o menu de navegação */
     }
 }
+
+/*========== Menu Hambúrguer =============*/
