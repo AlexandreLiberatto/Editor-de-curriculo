@@ -23,6 +23,24 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+
+        <!-- Ícone do Menu Hambúrguer -->
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <!-- Menu de Navegação -->
+        <nav class="mobile-nav" id="mobileNav">
+            <ul>
+                <li><a onclick="printpdf()">Baixar PDF</a></li>
+                <li><a onclick="saveToLocalStorage()">Salvar Progresso</a></li>
+                <li><a onclick="loadFromLocalStorage()">Carregar Histórico</a></li>
+                <li><a onclick="reloadPage()">Apagar Tudo</a></li>
+            </ul>
+        </nav>
+
         <div class="nav">
             <button id="cmd" onclick="printpdf()" class="navbtn"><i class="fas fa-download"></i></button>
             <form>

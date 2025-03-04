@@ -367,4 +367,18 @@ function reloadPage() {
     // Adicione quaisquer outras correções de formatação aqui
   }
 
+  function toggleMenu() {
+    const mobileNav = document.getElementById("mobileNav");
+    mobileNav.classList.toggle("active");
+}
+
+document.addEventListener("click", function(event) {
+    const mobileNav = document.getElementById("mobileNav");
+    const hamburgerMenu = document.querySelector(".hamburger-menu");
+
+    if (!hamburgerMenu.contains(event.target) && !mobileNav.contains(event.target)) {
+        mobileNav.classList.remove("active");
+    }
+});
+
 window.addEventListener("load", adjustForPrint);

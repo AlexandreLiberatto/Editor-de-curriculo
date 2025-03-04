@@ -288,16 +288,9 @@ button {
     }
 
     .nav {
-        position: fixed;
-        bottom: 60px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        justify-content: center; 
-        align-items: center;
-        gap: 50px; 
-        width: auto;
-        z-index: 1000; 
+       
+        display: none;
+       
     }
     
     .navbtn {
@@ -382,5 +375,71 @@ button {
     .resume {
         width: 95%;
         padding: 15px;
+    }
+}
+
+/* Estilo do Menu Hambúrguer */
+.hamburger-menu {
+    display: none; /* Esconder por padrão */
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.hamburger-menu .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 4px 0;
+    transition: 0.4s;
+}
+
+/* Estilo do Menu de Navegação Mobile */
+.mobile-nav {
+    display: none; /* Esconder por padrão */
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    padding: 20px;
+}
+
+.mobile-nav ul li {
+    margin: 15px 0;
+}
+
+.mobile-nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+}
+
+/* Mostrar o menu quando estiver ativo */
+.mobile-nav.active {
+    transform: translateX(0);
+}
+
+/* Estilo para dispositivos móveis */
+@media screen and (max-width: 768px) {
+    .hamburger-menu {
+        display: flex; /* Mostrar o ícone do menu hambúrguer */
+    }
+
+    .mobile-nav {
+        display: block; /* Mostrar o menu de navegação */
     }
 }
