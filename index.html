@@ -31,8 +31,8 @@
                             <input type="file" id="profile-upload" accept="image/*" style="display: none;">
                         </label>
                     </div>
-                    <span class="name" contenteditable="true">SEU NOME</span>
-                    <div class="post" contenteditable="true">SUA ATUAÇÃO</div>
+                    <span class="name" contenteditable="true">Seu Nome</span>
+                    <div class="post" contenteditable="true">Sua Atuação</div>
                 </div>
                 <div class="contacts">
                     <div class="contact-item">
@@ -45,7 +45,7 @@
                     </div>
                     <div class="contact-item">
                         <span class="symbol"><i class="fab fa-linkedin"></i></span>
-                        <span contenteditable="true" class="content">linkedin/seunome.com</span>
+                        <span contenteditable="true" class="content">linkedin/usuario.com</span>
                     </div>
                     <div class="contact-item">
                         <span class="symbol"><i class="fas fa-map-marker-alt"></i></span>
@@ -57,65 +57,65 @@
             <div class="line"></div>
             <div class="mainbody">
                 <div class="leftside">
-                   <span class="title">EXPERIÊNCIA</span><br><br>
+                   <span class="title" contenteditable="true">Experiência</span><br><br>
                     <div>
                         <div id="experience">
                             <div class="expblock">
                                 <span><input type="checkbox" class="input-checkbox"></span>
-                                <span class="experience-head" contenteditable="true"><b>SEU CARGO</b></span>
+                                <span class="experience-head" contenteditable="true"><b>Seu Cargo</b></span>
                                 <div><span contenteditable="true">Nome da Empresa</span> - <span contenteditable="true">Ano</span></div>
                             </div>
                         </div>
-                        <button id="expadd" type="button" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Experiência</button>
+                        <button id="expadd" type="button" class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Adicionar</button>
                         &nbsp;
-                        <button id="exprem" type="button" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i> Experiência</button>
+                        <button id="exprem" type="button" class="btn btn-outline-danger"><i class="fas fa-minus-circle"></i> Remover</button>
                     </div>
-                <br><br><span class="title">HABILIDADES</span><br><br><div>
-                <div class="language"><span><input type="checkbox" class="input-checkbox"></span><span contenteditable="true">Suas   Skills</span>&nbsp-&nbsp<span contenteditable="true">Nível</span></div>
+                <br><br><span class="title" contenteditable="true">Habilidades Técnicas</span><br><br><div>
+                <div class="language"><span><input type="checkbox" class="input-checkbox"></span><span contenteditable="true">Suas Skills</span>&nbsp-&nbsp<span contenteditable="true">Nível</span></div>
                 <div id="languages"></div>
-                <button id="langadd" type="button" class="btn btn-outline-success" onclick="addLang()"><i class="fas fa-plus-circle"></i> Habilidade</button>
+                <button id="langadd" type="button" class="btn btn-outline-success" onclick="addLang()"><i class="fas fa-plus-circle"></i> Adicionar</button>
                 &nbsp
-                <button id="langrem" type="button" class="btn btn-outline-danger" onclick="remLang(event)"><i class="fas fa-minus-circle"></i> Habilidade</button></div>
-                <br><br><span class="title">PROJETOS</span><br><br><div>
+                <button id="langrem" type="button" class="btn btn-outline-danger" onclick="remLang(event)"><i class="fas fa-minus-circle"></i> Remover</button></div>
+                <br><br><span class="title" contenteditable="true">Projetos</span><br><br><div>
                 <div class="achieve" ><span><input type="checkbox" class="input-checkbox"></span><span contenteditable="true">Escreva seus Projetos</span></div>
                 <div id="achievement"></div>
-                <button id="achadd" type="button" class="btn btn-outline-success" onclick="addAch()"><i class="fas fa-plus-circle"></i> Seus Projetos</button>
+                <button id="achadd" type="button" class="btn btn-outline-success" onclick="addAch()"><i class="fas fa-plus-circle"></i>Adicionar</button>
                 &nbsp
-                <button id="achrem" type="button" class="btn btn-outline-danger" onclick="remAch(event)" style="margin-top: 0;"><i class="fas fa-minus-circle"></i> Seus Projetos</button></div>
-                <br><br><span class="title">IDIOMAS</span><br><br><div>
+                <button id="achrem" type="button" class="btn btn-outline-danger" onclick="remAch(event)" style="margin-top: 0;"><i class="fas fa-minus-circle"></i> Remover</button></div>
+                <br><br><span class="title" contenteditable="true">Idiomas</span><br><br><div>
                 <div class="achieve" ><span><input type="checkbox" class="input-checkbox"></span><span contenteditable="true">Seus Idiomas</span></div>
                 <div id="interest"></div>
-                <button id="Intadd" type="button" class="btn btn-outline-success" onclick="addInt()"><i class="fas fa-plus-circle"></i> Linguagem</button>
+                <button id="Intadd" type="button" class="btn btn-outline-success" onclick="addInt()"><i class="fas fa-plus-circle"></i> Adicionar</button>
                 &nbsp
-                <button id="Intrem" type="button" class="btn btn-outline-danger" onclick="remInt(event)"><i class="fas fa-minus-circle"></i> Linguagem</button></div>
+                <button id="Intrem" type="button" class="btn btn-outline-danger" onclick="remInt(event)"><i class="fas fa-minus-circle"></i> Remover</button></div>
                 </div>
                 
                 <div class="border"></div>
                 <div class="rightside">
-                <span class="title">PERFIL PROFISSIONAL</span><br><br>
+                <span class="title" contenteditable="true">Resumo Proficional</span><br><br>
                 <div contenteditable="true">
                     Aqui você pode escrever as informações básicas sobre sua carreira como seu forte, algo sobre você que deseja que seu entrevistador saiba. Tente ser breve e forneça apenas as informações necessárias. Não inclua informações que já estão escritas em seu currículo em alguma outra seção.</div>
-                <br><br><span class="title">EDUCAÇÃO</span><br><br><div>
+                <br><br><span class="title" contenteditable="true">Fomação Acadêmica</span><br><br><div>
                 <div id="education">
                     <div class="edublock">
                         <span><input type="checkbox" class="input-checkbox"></span>
-                        <span class="education-head" contenteditable="true">SEU DIPLOMA</span>
+                        <span class="education-head" contenteditable="true">Seu Diploma</span>
                         <div ><span contenteditable="true">Nome da Instituição</span> - <span contenteditable="true">Ano</span></div>
                     </div>
                 </div>
                     
-                <button id="eduadd" type="button" class="btn btn-outline-success" onclick="addedu()"><i class="fas fa-plus-circle"></i> Educação</button>
+                <button id="eduadd" type="button" class="btn btn-outline-success" onclick="addedu()"><i class="fas fa-plus-circle"></i> Adicionar</button>
                 &nbsp
-                <button id="edurem" type="button" class="btn btn-outline-danger" onclick="remedu(event)"><i class="fas fa-minus-circle"></i> Educação</button></div>
+                <button id="edurem" type="button" class="btn btn-outline-danger" onclick="remedu(event)"><i class="fas fa-minus-circle"></i> Remover</button></div>
                 <br><br>
-                <div class="new-section-div"><div><span><input type="checkbox" class="input-checkbox"></span><span class="title" contenteditable="true">Qualificações Profissionais</span><br><br>
+                <div class="new-section-div"><div><span><input type="checkbox" class="input-checkbox"></span><span class="title" contenteditable="true">Cursos e Certificações</span><br><br>
                 <div contenteditable="true">
-                    Nesta seção, detalhe suas qualificações profissionais, certificações e cursos relevantes.</div>
+                    Nesta seção, detalhe suas certificações e cursos relevantes.</div>
                 </div>      
                 <div id="newsec"></div>
-                <button id="secadd" type="button" class="btn btn-outline-success" onclick="addsec()"><i class="fas fa-plus-circle"></i> Qualificações</button>
+                <button id="secadd" type="button" class="btn btn-outline-success" onclick="addsec()"><i class="fas fa-plus-circle"></i> Adicionar</button>
                 &nbsp
-                <button id="secrem" type="button" class="btn btn-outline-danger" onclick="remsec(event)"><i class="fas fa-minus-circle"></i> Qualificações</button>
+                <button id="secrem" type="button" class="btn btn-outline-danger" onclick="remsec(event)"><i class="fas fa-minus-circle"></i> Remover</button>
             </div>
             </div>
         </section>
