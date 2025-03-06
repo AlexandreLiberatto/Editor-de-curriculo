@@ -23,7 +23,7 @@ body {
 }
 
 .resume {
-    width: 80%;
+    width: auto;
     max-width: 1200px;
     background: #fff;
     border-radius: 12px;
@@ -33,7 +33,7 @@ body {
 
 #print {
     background-color: #fff;
-    padding: 30px 50px;
+    padding: 20px 20px;
     height: 1120px; 
     overflow: hidden; 
 }
@@ -92,7 +92,7 @@ body {
 .mainbody {
     display: grid;
     grid-template-columns: 10fr 1fr 17fr;
-    height: 900px; 
+    height: auto; 
 }
 
 .mainbody .border {
@@ -252,6 +252,7 @@ button {
         flex-direction: column;
         height: auto; 
     }
+    
 
     .mainbody .border {
         display: none; 
@@ -367,6 +368,7 @@ button {
         .new-page {
             break-before: page; 
         }
+        
     }
     
 }
@@ -445,19 +447,6 @@ button {
 }
 /*========== Menu Hambúrguer =============*/
 
-
-.assinatura {
-    text-align: center;
-    padding: 20px 0; 
-    font-size: 14px; 
-    color: #666; font-family: 
-    'Raleway', sans-serif;
-}
-
-.assinatura a {
-    color: #1abc9c; 
-    text-decoration: none; 
-}
 
 /*========== Estilo da assinatura =============*/
 .assinatura {

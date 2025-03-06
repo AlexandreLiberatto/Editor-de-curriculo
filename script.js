@@ -13,6 +13,8 @@ function printpdf() {
     });
 
     html2pdf(content, {
+        filename: 'currículo.pdf', // Nome do arquivo
+        pageSize: 'a4', // Tamanho da página A4
         html2canvas: { scale: 1, logging: true, dpi: 500 },
         pagebreak: { mode: 'avoid-all' }
     }).then(() => {
