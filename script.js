@@ -12,7 +12,6 @@ function printpdf() {
         input.style.display = "none";
     });
 
-
     html2pdf(content, {
         html2canvas: { scale: 1, logging: true, dpi: 500 },
         pagebreak: { mode: 'avoid-all' }
@@ -23,8 +22,10 @@ function printpdf() {
         allInputCheckboxes.forEach(input => {
             input.style.display = "inline-block";
         });
+        mostrarAlertaPersonalizado("✅ PDF Gerado!", "O PDF foi criado com sucesso!");
+    }).catch(() => {
+        mostrarAlertaPersonalizado("⚠️ Erro!", "Ocorreu um erro ao gerar o PDF. Tente novamente.");
     });
-    
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -60,25 +61,28 @@ function addedu() {
   head.innerHTML = ('<div class="edublock"><span><input type="checkbox" class="input-checkbox"></span><span class="education-head" contenteditable="true">SEU DIPLOMA</span><div ><span contenteditable="true">Nome da Instituição</span> - <span contenteditable="true">Ano</span></div></div>');
   saveresume();
 }
+
 function remedu(event) {
-  let val = 0;
-  let empty = true;
-  const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
-  const array = Array.from(allInputCheckboxes);
-  if (array.length === 0) {
-    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
-  }
-  else {
-      console.log(array);
-      array.forEach(element => {
-          if (element.checked === true) {
-              val = 1;
-              element.parentElement.parentElement.remove();
-          }
-      })
-      if (val === 0) mostrarAlertaPersonalizado("Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
-  }
-  saveresume();
+    let val = 0;
+    let empty = true;
+    const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
+    const array = Array.from(allInputCheckboxes);
+    if (array.length === 0) {
+        mostrarAlertaPersonalizado("⚠️ Ops!", "Não há nada para deletar!");
+    } else {
+        array.forEach(element => {
+            if (element.checked === true) {
+                val = 1;
+                element.parentElement.parentElement.remove();
+            }
+        });
+        if (val === 0) {
+            mostrarAlertaPersonalizado("⚠️ Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!");
+        } else {
+            mostrarAlertaPersonalizado("✅ Sucesso!", "Itens removidos com sucesso!");
+        }
+    }
+    saveresume();
 }
 
 
@@ -90,23 +94,25 @@ function addskill() {
 }
 
 function remskill(event) {
-  let val = 0;
-  const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
-  const array = Array.from(allInputCheckboxes);
-  if (array.length === 0) {
-    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
-  }
-  else {
-      console.log(array);
-      array.forEach(element => {
-          if (element.checked === true) {
-              val = 1;
-              element.parentElement.parentElement.remove();
-          }
-      })
-      if (val === 0) mostrarAlertaPersonalizado("Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
-  }
-  saveresume();
+    let val = 0;
+    const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
+    const array = Array.from(allInputCheckboxes);
+    if (array.length === 0) {
+        mostrarAlertaPersonalizado("⚠️ Ops!", "Não há nada para deletar!");
+    } else {
+        array.forEach(element => {
+            if (element.checked === true) {
+                val = 1;
+                element.parentElement.parentElement.remove();
+            }
+        });
+        if (val === 0) {
+            mostrarAlertaPersonalizado("⚠️ Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!");
+        } else {
+            mostrarAlertaPersonalizado("✅ Sucesso!", "Habilidades removidas com sucesso!");
+        }
+    }
+    saveresume();
 }
 
 
@@ -116,24 +122,27 @@ function addLang() {
   head.innerHTML = ('<div class="language"><span><input type="checkbox" class="input-checkbox"></span><span contenteditable="true">Suas Skills</span>&nbsp-&nbsp<span contenteditable="true">Nível</span></div>');
   saveresume();
 }
+
 function remLang(event) {
-  let val = 0;
-  const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
-  const array = Array.from(allInputCheckboxes);
-  if (array.length === 0) {
-    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
-  }
-  else {
-      console.log(array);
-      array.forEach(element => {
-          if (element.checked === true) {
-              val = 1;
-              element.parentElement.parentElement.remove();
-          }
-      })
-      if (val === 0) mostrarAlertaPersonalizado("Ateção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
-  }
-  saveresume();
+    let val = 0;
+    const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
+    const array = Array.from(allInputCheckboxes);
+    if (array.length === 0) {
+        mostrarAlertaPersonalizado("⚠️ Ops!", "Não há nada para deletar!");
+    } else {
+        array.forEach(element => {
+            if (element.checked === true) {
+                val = 1;
+                element.parentElement.parentElement.remove();
+            }
+        });
+        if (val === 0) {
+            mostrarAlertaPersonalizado("⚠️ Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!");
+        } else {
+            mostrarAlertaPersonalizado("✅ Sucesso!", "Idiomas removidos com sucesso!");
+        }
+    }
+    saveresume();
 }
 
 
@@ -143,24 +152,27 @@ function addAch() {
   head.innerHTML = ('<div class="achieve" ><span><input type="checkbox" class="input-checkbox"></span><span contenteditable="true">Escreva seus Projetos</span></div>');
   saveresume();
 }
+
 function remAch(event) {
-  let val = 0;
-  const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
-  const array = Array.from(allInputCheckboxes);
-  if (array.length === 0) {
-    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
-  }
-  else {
-      console.log(array);
-      array.forEach(element => {
-          if (element.checked === true) {
-              val = 1;
-              element.parentElement.parentElement.remove();
-          }
-      })
-      if (val === 0) mostrarAlertaPersonalizado("Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
-  }
-  saveresume();
+    let val = 0;
+    const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
+    const array = Array.from(allInputCheckboxes);
+    if (array.length === 0) {
+        mostrarAlertaPersonalizado("⚠️ Ops!", "Não há nada para deletar!");
+    } else {
+        array.forEach(element => {
+            if (element.checked === true) {
+                val = 1;
+                element.parentElement.parentElement.remove();
+            }
+        });
+        if (val === 0) {
+            mostrarAlertaPersonalizado("⚠️ Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!");
+        } else {
+            mostrarAlertaPersonalizado("✅ Sucesso!", "Conquistas removidas com sucesso!");
+        }
+    }
+    saveresume();
 }
 
 
@@ -170,64 +182,67 @@ function addInt() {
   head.innerHTML = ('<div class="achieve" ><span><input type="checkbox" class="input-checkbox"></span><span contenteditable="true">Seus Idiomas</span></div>');
   saveresume();
 }
+
 function remInt(event) {
-  let val = 0;
-  const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
-  const array = Array.from(allInputCheckboxes);
-  if (array.length === 0) {
-    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
-  }
-  else {
-      array.forEach(element => {
-          if (element.checked === true) {
-              val = 1;
-              element.parentElement.parentElement.remove();
-          }
-      })
-      if (val === 0) mostrarAlertaPersonalizado("Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
-  }
-  saveresume();
+    let val = 0;
+    const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
+    const array = Array.from(allInputCheckboxes);
+    if (array.length === 0) {
+        mostrarAlertaPersonalizado("⚠️ Ops!", "Não há nada para deletar!");
+    } else {
+        array.forEach(element => {
+            if (element.checked === true) {
+                val = 1;
+                element.parentElement.parentElement.remove();
+            }
+        });
+        if (val === 0) {
+            mostrarAlertaPersonalizado("⚠️ Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!");
+        } else {
+            mostrarAlertaPersonalizado("✅ Sucesso!", "Interesses removidos com sucesso!");
+        }
+    }
+    saveresume();
 }
 
 let maxNewSection = 1;
 function addsec() {
-  if (maxNewSection < 3) {
-      const head = document.createElement('div');
-      document.getElementById("newsec").appendChild(head);
-      if (maxNewSection === 1) {
-          head.innerHTML = ('<div><span><input type="checkbox" class="input-checkbox"></span><span class="title" contenteditable="true">Qualificações Profissionais</span><br><br><div contenteditable="true">Nesta seção, detalhe suas qualificações profissionais, certificações e cursos relevantes.</div></div>');
-      }
-      else {
-          head.innerHTML = ('<div><br><br><span><input type="checkbox" class="input-checkbox"></span><span class="title" contenteditable="true">Qualificações Profissionais</span><br><br><div contenteditable="true">Nesta seção, detalhe suas qualificações profissionais, certificações e cursos relevantes.</div></div>');
-      }
-
-      maxNewSection = maxNewSection + 1;
-  }
-  else {
-    mostrarAlertaPersonalizado("Atenção!", "Somente três novos tópicos podem ser adicionados!")
-
-  }
-  saveresume();
+    if (maxNewSection < 3) {
+        const head = document.createElement('div');
+        document.getElementById("newsec").appendChild(head);
+        if (maxNewSection === 1) {
+            head.innerHTML = ('<div><span><input type="checkbox" class="input-checkbox"></span><span class="title" contenteditable="true">Qualificações Profissionais</span><br><br><div contenteditable="true">Nesta seção, detalhe suas qualificações profissionais, certificações e cursos relevantes.</div></div>');
+        } else {
+            head.innerHTML = ('<div><br><br><span><input type="checkbox" class="input-checkbox"></span><span class="title" contenteditable="true">Qualificações Profissionais</span><br><br><div contenteditable="true">Nesta seção, detalhe suas qualificações profissionais, certificações e cursos relevantes.</div></div>');
+        }
+        maxNewSection = maxNewSection + 1;
+    } else {
+        mostrarAlertaPersonalizado("⚠️ Atenção!", "Somente três novos tópicos podem ser adicionados!");
+    }
+    saveresume();
 }
+
 function remsec(event) {
-  let val = 0;
-  const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
-  const array = Array.from(allInputCheckboxes);
-  if (array.length === 0) {
-    mostrarAlertaPersonalizado("Ops!", "Não há nada para deletar!")
-  }
-  else {
-      console.log(array);
-      array.forEach(element => {
-          if (element.checked === true) {
-              val = 1;
-              maxNewSection = maxNewSection - 1;
-              element.parentElement.parentElement.remove();
-          }
-      })
-      if (val === 0) alermostrarAlertaPersonalizado("Atenção!","Por favor, marque as caixas de seleção para excluir o campo obrigatório!")
-  }
-  saveresume();
+    let val = 0;
+    const allInputCheckboxes = event.target.parentElement.getElementsByClassName("input-checkbox");
+    const array = Array.from(allInputCheckboxes);
+    if (array.length === 0) {
+        mostrarAlertaPersonalizado("⚠️ Ops!", "Não há nada para deletar!");
+    } else {
+        array.forEach(element => {
+            if (element.checked === true) {
+                val = 1;
+                maxNewSection = maxNewSection - 1;
+                element.parentElement.parentElement.remove();
+            }
+        });
+        if (val === 0) {
+            mostrarAlertaPersonalizado("⚠️ Atenção!", "Por favor, marque as caixas de seleção para excluir o campo obrigatório!");
+        } else {
+            mostrarAlertaPersonalizado("✅ Sucesso!", "Seção removida com sucesso!");
+        }
+    }
+    saveresume();
 }
 
 function saveresume() {
@@ -313,13 +328,13 @@ function adjustForPrint() {
 async function reloadPage() {
     if (!haModificacoes()) {
         // Se não houver modificações, exibe a mensagem
-        await alertaPersonalizadoComOpcaoDeCancelar("Aviso!", "Não há nada para apagar.");
+        await alertaPersonalizadoComOpcaoDeCancelar("⚠️ Atenção!", "Não há nada para apagar.");
         return;
     }
 
     // Se houver modificações, exibe a confirmação
     const userConfirmed = await alertaPersonalizadoComOpcaoDeCancelar(
-        "Aviso!",
+        "⚠️ Atenção!",
         "Você tem certeza que deseja apagar tudo? Esta ação não pode ser desfeita."
     );
 
@@ -337,35 +352,23 @@ async function reloadPage() {
 
 
   function saveToLocalStorage() {
-    // Seleciona o elemento principal que contém todos os dados
     const resumeContent = document.getElementById("resume");
-  
-    // Salva o HTML interno do elemento no localStorage
     localStorage.setItem("resumeData", resumeContent.innerHTML);
-  
-    // Exibe uma mensagem de sucesso (opcional)
-    mostrarAlertaPersonalizado("Aviso!", "Dados salvos com sucesso!");
-  }
+    mostrarAlertaPersonalizado("✅ Sucesso!", "Dados salvos com sucesso!");
+}
 
-  function loadFromLocalStorage() {
+function loadFromLocalStorage() {
     const savedData = localStorage.getItem("resumeData");
-  
     if (!savedData) {
-      // Se não houver dados no localStorage, exibe um alerta
-      mostrarAlertaPersonalizado("Atenção!", "Não há dados salvos no LocalStorage!");
-      return; // Sai da função e não faz mais nada
+        mostrarAlertaPersonalizado("⚠️ Atenção!", "Não há dados salvos no LocalStorage!");
+        return;
     }
-  
-    // Se houver dados, carrega-os na página
     const resumeContent = document.getElementById("resume");
     resumeContent.innerHTML = savedData;
-  
-    // Aplica formatações adicionais, se necessário
     applyDefaultFormatting();
-  
-    mostrarAlertaPersonalizado("Atenção!", "Dados recuperados com sucesso!");
-  }
-  
+    mostrarAlertaPersonalizado("✅ Sucesso!", "Dados recuperados com sucesso!");
+}
+
   // Função para garantir que a formatação padrão seja aplicada
   function applyDefaultFormatting() {
     // Certifique-se de que todos os elementos tenham as classes e estilos corretos
