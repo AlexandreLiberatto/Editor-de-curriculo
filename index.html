@@ -7,6 +7,8 @@
     <title>Editor de Currículo</title>
     <meta name="description" content="Crie e edite seu currículo de forma rápida e profissional.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="img/Logo.png">
+    <link rel="apple-touch-icon" href="img/Logo.png">
 
     <!--======== EXIBIR A IMAGEM DO SITE NO LINK =============-->
     <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
@@ -16,51 +18,131 @@
     <meta property="og:url" content="https://curriculofacilalexandre.netlify.app/">
     <meta property="og:type" content="website">
     <!--======== EXIBIR A IMAGEM DO SITE NO LINK =============-->
-    <link rel="shortcut icon" href="img/logo.png" type="image/png">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="template-styles.css">
+    <link rel="stylesheet" href="drag-and-drop.css">
+    
+    <!-- Google Fonts adicionais -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Open+Sans:wght@400;600&family=Poppins:wght@400;500&family=Roboto:wght@400;500&family=Roboto+Slab&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <!-- Barra de ferramentas unificada -->
+    <div class="unified-toolbar">
+        <button class="toolbar-button" data-tooltip="Templates" onclick="openTemplateModal()">
+            <i class="fas fa-palette"></i>
+        </button>
+        <button class="toolbar-button" data-tooltip="Exportar" onclick="exportOptions()">
+            <i class="fas fa-download"></i>
+        </button>
+        <button class="toolbar-button" data-tooltip="Salvar" onclick="saveToLocalStorage()">
+            <i class="fas fa-save"></i>
+        </button>
+        <button class="toolbar-button" data-tooltip="Carregar" onclick="loadFromLocalStorage()">
+            <i class="fas fa-cloud-download-alt"></i>
+        </button>
+        <button class="toolbar-button" data-tooltip="Revisar" onclick="reviewResume()">
+            <i class="fas fa-check-circle"></i>
+        </button>
+        <button class="toolbar-button" data-tooltip="Versões" onclick="loadVersionHistory()">
+            <i class="fas fa-history"></i>
+        </button>
+        <button class="toolbar-button" data-tooltip="Apagar" onclick="reloadPage()">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </div>
+
+    <!-- Botão flutuante para mobile -->
+    <button class="mobile-action-button" id="mobileActionButton">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- Menu de ações mobile -->
+    <div class="mobile-actions-menu" id="mobileActionsMenu">
+        <button class="mobile-action-item" data-tooltip="Exportar" onclick="exportOptions()">
+            <i class="fas fa-download"></i>
+        </button>
+        <button class="mobile-action-item" data-tooltip="Salvar" onclick="saveToLocalStorage()">
+            <i class="fas fa-save"></i>
+        </button>
+        <button class="mobile-action-item" data-tooltip="Revisar" onclick="reviewResume()">
+            <i class="fas fa-check-circle"></i>
+        </button>
+        <button class="mobile-action-item" data-tooltip="Templates" onclick="openTemplateModal()">
+            <i class="fas fa-palette"></i>
+        </button>
+    </div>
+
+    <!-- Modal de seleção de templates -->
+    <div class="template-modal" id="templateModal">
+        <div class="template-container">
+            <div class="template-header">
+                <h2>Escolha um Template</h2>
+                <button class="template-close" onclick="closeTemplateModal()">&times;</button>
+            </div>
+            <div class="template-grid">
+                <div class="template-item active" onclick="selectTemplate('modern')">
+                    <div class="template-preview">
+                        <div style="width: 90%; height: 90%; background-color: #fff; border: 2px solid #1abc9c;"></div>
+                    </div>
+                    <div class="template-title">Moderno</div>
+                    <div class="template-description">Design limpo e contemporâneo com detalhes em verde</div>
+                </div>
+                <div class="template-item" onclick="selectTemplate('professional')">
+                    <div class="template-preview">
+                        <div style="width: 90%; height: 90%; background-color: #fff; border: 2px solid #2c3e50;"></div>
+                    </div>
+                    <div class="template-title">Profissional</div>
+                    <div class="template-description">Layout clássico e formal para ambientes corporativos</div>
+                </div>
+                <div class="template-item" onclick="selectTemplate('creative')">
+                    <div class="template-preview">
+                        <div style="width: 90%; height: 90%; background-color: #fff; border: 2px solid #e74c3c;"></div>
+                    </div>
+                    <div class="template-title">Criativo</div>
+                    <div class="template-description">Design colorido e dinâmico para áreas criativas</div>
+                </div>
+                <div class="template-item" onclick="selectTemplate('minimal')">
+                    <div class="template-preview">
+                        <div style="width: 90%; height: 90%; background-color: #fff; border: 2px solid #3498db;"></div>
+                    </div>
+                    <div class="template-title">Minimalista</div>
+                    <div class="template-description">Design simples e elegante com foco no conteúdo</div>
+                </div>
+            </div>
+            <button class="template-apply" onclick="applySelectedTemplate()">Aplicar Template</button>
+        </div>
+    </div>
+
+    <!-- Overlay do menu mobile -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
 
     <!--======== Menu Hambúrguer ==========-->
-    <div class="hamburger-menu" onclick="toggleMenu()">
+    <div class="hamburger-menu" id="hamburgerMenu">
         <div class="bar"></div>
         <div class="bar"></div>
         <div class="bar"></div>
     </div>
 
     <nav class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <h3>Editor de Currículo</h3>
+        </div>
         <ul>
-            <li><a onclick="printpdf()"><strong>Baixar PDF</strong></a></li>
-            <li><a onclick="saveToLocalStorage()"><strong>Salvar Progresso</strong></a></li>
-            <li><a onclick="loadFromLocalStorage()"><strong>Carregar Histórico</strong></a></li>
-            <li><a onclick="reloadPage()"><strong>Apagar Tudo</strong></a></li>
+            <li><a onclick="exportOptions()"><i class="fas fa-download"></i>Exportar Currículo</a></li>
+            <li><a onclick="saveToLocalStorage()"><i class="fas fa-save"></i>Salvar Progresso</a></li>
+            <li><a onclick="loadFromLocalStorage()"><i class="fas fa-cloud-download-alt"></i>Carregar Histórico</a></li>
+            <li><a onclick="reviewResume()"><i class="fas fa-check-circle"></i>Revisar Currículo</a></li>
+            <li><a onclick="openTemplateModal()"><i class="fas fa-palette"></i>Mudar Template</a></li>
+            <li><a onclick="loadVersionHistory()"><i class="fas fa-history"></i>Histórico de Versões</a></li>
+            <li><a onclick="reloadPage()"><i class="fas fa-trash-alt"></i>Apagar Tudo</a></li>
         </ul>
     </nav>
     <!--======== Menu Hambúrguer ==========-->
-
-    <!--==========NAVBAR=============-->
-    <div class="nav">
-        <button id="cmd" onclick="printpdf()" class="navbtn"><i class="fas fa-download"></i></button>
-        <form>
-            <input type="hidden" id="custinfo" name="custinfo">
-            <button type="button" class="navbtn" onclick="saveToLocalStorage()">
-                <i class="fas fa-save"></i>
-            </button>
-        </form>
-
-        <button class="navbtn" onclick="loadFromLocalStorage()">
-            <i class="fas fa-cloud-download-alt"></i>
-        </button>
-        <button class="navbtn" onclick="reloadPage()">
-            <i class="fas fa-redo"></i>
-        </button>
-
-    </div>
-    <!--==========NAVBAR=============-->
 
     <!--==========Assinatura===========-->
     <section class="assinatura">
@@ -105,9 +187,10 @@
             <div class="line"></div>
             <div class="mainbody">
                 <div class="leftside">
-                    <span class="title" contenteditable="true">Experiência</span><br><br>
-                    <div>
-                        <div id="experience">
+                    <div class="drag-section">
+                        <span class="title" contenteditable="true">Experiência</span><br><br>
+                        <div>
+                            <div id="experience">
                             <div class="expblock">
                                 <span><input type="checkbox" class="input-checkbox"></span>
                                 <span class="experience-head" contenteditable="true"><b>Seu Cargo</b></span>
@@ -121,8 +204,11 @@
                         <button id="exprem" type="button" class="btn btn-outline-danger"><i
                                 class="fas fa-minus-circle"></i> Remover</button>
                     </div>
-                    <br><br><span class="title" contenteditable="true">Habilidades Técnicas</span><br><br>
-                    <div>
+                    </div>
+                    
+                    <div class="drag-section">
+                        <br><br><span class="title" contenteditable="true">Habilidades Técnicas</span><br><br>
+                        <div>
                         <div class="language"><span><input type="checkbox" class="input-checkbox"></span><span
                                 contenteditable="true">Suas Skills</span>&nbsp-&nbsp<span
                                 contenteditable="true">Nível</span></div>
@@ -133,8 +219,11 @@
                         <button id="langrem" type="button" class="btn btn-outline-danger" onclick="remLang(event)"><i
                                 class="fas fa-minus-circle"></i> Remover</button>
                     </div>
-                    <br><br><span class="title" contenteditable="true">Projetos</span><br><br>
-                    <div>
+                    </div>
+                    
+                    <div class="drag-section">
+                        <br><br><span class="title" contenteditable="true">Projetos</span><br><br>
+                        <div>
                         <div class="achieve"><span><input type="checkbox"
                                     class="input-checkbox"></span><span contenteditable="true">Escreva seus
                                 Projetos</span></div>
@@ -145,8 +234,11 @@
                         <button id="achrem" type="button" class="btn btn-outline-danger" onclick="remAch(event)"
                             style="margin-top: 0;"><i class="fas fa-minus-circle"></i> Remover</button>
                     </div>
-                    <br><br><span class="title" contenteditable="true">Idiomas</span><br><br>
-                    <div>
+                    </div>
+                    
+                    <div class="drag-section">
+                        <br><br><span class="title" contenteditable="true">Idiomas</span><br><br>
+                        <div>
                         <div class="achieve"><span><input type="checkbox"
                                     class="input-checkbox"></span><span contenteditable="true">Seus Idiomas</span></div>
                         <div id="interest"></div>
@@ -156,18 +248,23 @@
                         <button id="Intrem" type="button" class="btn btn-outline-danger" onclick="remInt(event)"><i
                                 class="fas fa-minus-circle"></i> Remover</button>
                     </div>
+                    </div>
                 </div>
 
                 <div class="border"></div>
                 <div class="rightside">
-                    <span class="title" contenteditable="true">Resumo Profissional</span><br><br>
-                    <div contenteditable="true">
+                    <div class="drag-section">
+                        <span class="title" contenteditable="true">Resumo Profissional</span><br><br>
+                        <div contenteditable="true">
                         Aqui você pode escrever as informações básicas sobre sua carreira como seu forte, algo sobre
                         você que deseja que seu entrevistador saiba. Tente ser breve e forneça apenas as informações
                         necessárias. Não inclua informações que já estão escritas em seu currículo em alguma outra
                         seção.</div>
-                    <br><br><span class="title" contenteditable="true">Formação Acadêmica</span><br><br>
-                    <div>
+                    </div>
+                    
+                    <div class="drag-section">
+                        <br><br><span class="title" contenteditable="true">Formação Acadêmica</span><br><br>
+                        <div>
                         <div id="education">
                             <div class="edublock">
                                 <span><input type="checkbox" class="input-checkbox"></span>
@@ -183,11 +280,14 @@
                         <button id="edurem" type="button" class="btn btn-outline-danger" onclick="remedu(event)"><i
                                 class="fas fa-minus-circle"></i> Remover</button>
                     </div>
-                    <br><br>
-                    <div class="new-section-div">
-                        <div><span><input type="checkbox" class="input-checkbox"></span><span class="title"
-                                contenteditable="true">Cursos e Certificações</span><br><br>
-                            <div contenteditable="true">
+                    </div>
+                    
+                    <div class="drag-section">
+                        <br><br>
+                        <div class="new-section-div">
+                            <div><span><input type="checkbox" class="input-checkbox"></span><span class="title"
+                                    contenteditable="true">Cursos e Certificações</span><br><br>
+                                <div contenteditable="true">
                                 Nesta seção, detalhe suas certificações e cursos relevantes.</div>
                         </div>
                         <div id="newsec"></div>
@@ -196,6 +296,7 @@
                         &nbsp
                         <button id="secrem" type="button" class="btn btn-outline-danger" onclick="remsec(event)"><i
                                 class="fas fa-minus-circle"></i> Remover</button>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -208,11 +309,61 @@
                 Liberato&gt;</strong></a>
     </section>
     <!--==========Assinatura===========-->
+    
+    <!-- Feedback para modo de reorganização -->
+    <div class="reorganization-feedback">
+        <i class="fas fa-info-circle"></i> Arraste as seções para reorganizá-las
+    </div>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.0/html2pdf.bundle.min.js"></script>
+    <script src="templates.js"></script>
+    <script src="animations.js"></script>
+    <script src="drag-and-drop.js"></script>
     <script src="script.js"></script>
+
+    <script>
+        // Funções relacionadas ao template
+        let selectedTemplateKey = 'modern';
+
+        function openTemplateModal() {
+            document.getElementById('templateModal').classList.add('active');
+        }
+
+        function closeTemplateModal() {
+            document.getElementById('templateModal').classList.remove('active');
+        }
+
+        function selectTemplate(templateKey) {
+            selectedTemplateKey = templateKey;
+            
+            // Atualizar visual dos itens do template
+            document.querySelectorAll('.template-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            event.currentTarget.classList.add('active');
+        }
+
+        function applySelectedTemplate() {
+            applyTemplate(selectedTemplateKey);
+            closeTemplateModal();
+        }
+
+        // Fechar modal ao clicar fora dela
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('templateModal');
+            if (event.target === modal) {
+                closeTemplateModal();
+            }
+        });
+
+        // Carregar template salvo quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTemplate();
+        });
+    </script>
 
 </body>
 

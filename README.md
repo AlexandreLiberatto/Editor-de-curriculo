@@ -12,11 +12,16 @@ O **Editor de Currículo Moderno** é uma ferramenta intuitiva e responsiva para
 
 Recursos principais:
 - **Responsividade**: Funciona perfeitamente em dispositivos móveis, tablets e desktops.
-- **Download em PDF**: Gere seu currículo em formato PDF com apenas um clique.
+- **Templates Personalizáveis**: Escolha entre diferentes estilos de design profissional.
+- **Download em PDF**: Gere seu currículo em formato PDF com diferentes qualidades.
+- **Exportação em HTML**: Salve seu currículo em formato HTML para uso na web.
+- **Sistema de Revisão**: Receba sugestões para melhorar seu currículo.
+- **Histórico de Versões**: Mantenha diferentes versões do seu currículo.
 - **Upload de Imagem**: Adicione sua foto de perfil com suporte para arrastar e soltar.
 - **Campos Editáveis**: Todos os campos são editáveis, permitindo personalização completa.
 - **Reset Completo**: Limpe todos os campos com um único botão.
 - **Design Moderno**: Interface limpa e profissional com cores suaves e tipografia elegante.
+- **Dicas Contextuais**: Dicas sobre como preencher cada seção do currículo.
 
 ---
 
@@ -32,10 +37,14 @@ Recursos principais:
 - **Foto de Perfil**: Clique na imagem de perfil ou arraste e solte uma nova imagem.
 - **Contatos**: Edite os campos de telefone, e-mail, LinkedIn e localização.
 - **Seções**: Use os botões "+" e "-" para adicionar ou remover itens nas seções de Experiência, Habilidades, Projetos, Idiomas e Educação.
+- **Templates**: Clique no botão de paleta de cores para escolher entre diferentes estilos de currículo.
+- **Revisão**: Use o sistema de revisão para receber sugestões de melhoria para seu currículo.
+- **Versões**: Salve diferentes versões do seu currículo para diferentes tipos de emprego.
 
-### **Baixando o Currículo**
-- Clique no botão de download (`<i class="fas fa-download"></i>`) para gerar o currículo em PDF.
-- O PDF será salvo automaticamente no seu dispositivo.
+### **Exportando o Currículo**
+- Clique no botão de download para abrir as opções de exportação.
+- Escolha entre PDF, HTML ou impressão direta.
+- Para PDF, selecione a qualidade desejada (Normal, Alta ou Máxima).
 
 ---
 
@@ -43,16 +52,21 @@ Recursos principais:
 
 ### **Funções Principais**
 - **Adicionar/Remover Seções**: Use funções como `addExp()`, `remExp()`, `addLang()`, `remLang()` para gerenciar dinamicamente as seções do currículo.
-- **Salvar Progresso**: A função `saveresume()` salva o conteúdo atual do currículo para evitar perda de dados.
+- **Salvar Progresso**: A função `saveToLocalStorage()` salva o conteúdo atual do currículo para evitar perda de dados.
 - **Responsividade Dinâmica**: A função `updateMobileView()` ajusta o layout para diferentes tamanhos de tela.
+- **Templates**: A função `applyTemplate()` permite alternar entre diferentes estilos visuais.
+- **Revisão**: O sistema `reviewResume()` analisa seu currículo e oferece sugestões para melhorá-lo.
+- **Histórico de Versões**: As funções `saveVersionSnapshot()` e `loadVersionHistory()` permitem gerenciar diferentes versões do currículo.
 
 ### **Upload de Imagem**
 - O código suporta upload de imagem via `<input type="file">`.
 - A função `FileReader` é usada para carregar a imagem selecionada.
+- Suporte para arrastar e soltar imagens na área do perfil.
 
-### **Download**
-- A biblioteca `html2pdf.js` é usada para converter o currículo em PDF.
-- Antes da impressão, os botões e checkboxes são ocultados para garantir um layout limpo.
+### **Exportação**
+- A biblioteca `html2pdf.js` é usada para converter o currículo em PDF com diferentes qualidades.
+- Exportação em HTML para uso na web.
+- Suporte para impressão direta via navegador.
 
 ---
 

@@ -1,0 +1,135 @@
+/* Estilos para o sistema de arrastar e soltar (drag and drop) */
+
+/* Modo de reorganização */
+body.reorganization-mode .drag-section {
+  position: relative;
+  padding-top: 30px; /* Espaço para a alça de arraste */
+  border: 1px dashed transparent;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+
+body.reorganization-mode .drag-section:hover {
+  border-color: var(--primary-color);
+  background-color: rgba(26, 188, 156, 0.05);
+}
+
+/* Alça para arrastar */
+.drag-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25px;
+  background-color: rgba(26, 188, 156, 0.1);
+  border-bottom: 1px dashed var(--primary-color);
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  transition: all 0.2s ease;
+}
+
+.drag-handle:hover {
+  background-color: rgba(26, 188, 156, 0.2);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.drag-handle i {
+  font-size: 14px;
+}
+
+/* Estilos durante o arraste */
+.drag-section.dragging {
+  opacity: 0.6;
+  transform: scale(0.98);
+  border: 1px dashed var(--primary-color);
+  background-color: rgba(26, 188, 156, 0.1);
+  z-index: 999;
+}
+
+.drag-section.drag-over {
+  border-top: 3px solid var(--primary-color);
+  padding-top: 27px; /* Compensar a borda superior */
+}
+
+/* Indicador visual para onde o elemento será inserido */
+.drag-section.drag-over::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary-color);
+  animation: pulse 1s infinite;
+}
+
+/* Animação quando um elemento é solto */
+.drag-section.just-dropped {
+  animation: dropPulse 0.5s ease;
+}
+
+@keyframes dropPulse {
+  0% {
+    background-color: rgba(26, 188, 156, 0.2);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Estilo para o botão de reorganização quando ativo */
+.toolbar-button.active,
+.mobile-action-item.active {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Barra de feedback durante o modo de reorganização */
+.reorganization-feedback {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: none;
+  font-size: 14px;
+  align-items: center;
+  gap: 10px;
+}
+
+body.reorganization-mode .reorganization-feedback {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+.reorganization-feedback i {
+  font-size: 16px;
+}
+
+/* Responsividade para dispositivos móveis */
+@media screen and (max-width: 768px) {
+  body.reorganization-mode .drag-section {
+    padding-top: 25px; /* Menor altura em dispositivos móveis */
+  }
+  
+  .drag-handle {
+    height: 20px;
+  }
+  
+  .reorganization-feedback {
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+}

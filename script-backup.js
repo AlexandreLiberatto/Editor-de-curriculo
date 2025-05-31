@@ -1,7 +1,7 @@
-
 function printpdf() {
     var content = document.getElementById("resume");
 
+    // Ocultar botões e checkboxes antes da geração
     const allButtons = document.querySelectorAll("#print button");
     allButtons.forEach(button => {
         button.style.display = "none";
@@ -12,159 +12,21 @@ function printpdf() {
         input.style.display = "none";
     });
 
-    // Obter a qualidade selecio  // Função para garantir que a formatação padrão seja aplicada
-  function applyDefaultFormatting() {
-    // Certifique-se de que todos os elementos tenham as classes e estilos corretos
-    document.querySelectorAll(".input-checkbox").forEach(input => {
-      input.style.display = "inline-block"; // Exemplo de ajuste de estilo
-    });
+    // ===== FORÇAR LAYOUT DESKTOP PARA PDF =====
+    // Salvar estado original
+    const originalStyle = content.style.cssText;
+    const originalClass = content.className;
     
-    // Garantir que as seções arrastáveis tenham os manipuladores corretos
-    document.querySelectorAll('.drag-section').forEach(section => {
-        // Verificar se já não está configurado
-        if (!section.hasAttribute('draggable')) {
-            // Chamar a função do arquivo drag-and-drop.js
-            if (typeof setupDraggableSection === 'function') {
-                setupDraggableSection(section);
-            }
-        }
-    });
-  }
-
-// Função para exibir o histórico de versões
-function loadVersionHistory() {
-    const versionHistory = JSON.parse(localStorage.getItem("versionHistory")) || [];
+    // Aplicar estilos para forçar layout desktop de forma mais simples
+    content.style.width = 'auto';
+    content.style.maxWidth = 'none';
+    content.style.minWidth = 'auto';
     
-    if (versionHistory.length === 0) {
-        mostrarAlertaPersonalizado("⚠️ Histórico Vazio", "Não há versões salvas no histórico.");
-        return;
-    }
+    // Adicionar classe especial para layout desktop
+    content.classList.add('pdf-desktop-layout');
     
-    // Criar o overlay
-    const overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    overlay.style.display = 'flex';
-    overlay.style.justifyContent = 'center';
-    overlay.style.alignItems = 'center';
-    overlay.style.zIndex = '1100';
-    
-    // Criar o contêiner do histórico
-    const historyContainer = document.createElement('div');
-    historyContainer.style.backgroundColor = '#fff';
-    historyContainer.style.padding = '20px';
-    historyContainer.style.borderRadius = '10px';
-    historyContainer.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
-    historyContainer.style.maxWidth = '600px';
-    historyContainer.style.width = '90%';
-    historyContainer.style.maxHeight = '80vh';
-    historyContainer.style.overflowY = 'auto';
-    
-    // Criar o cabeçalho
-    const header = document.createElement('div');
-    header.style.display = 'flex';
-    header.style.justifyContent = 'space-between';
-    header.style.alignItems = 'center';
-    header.style.marginBottom = '20px';
-    header.style.borderBottom = '2px solid #1abc9c';
-    header.style.paddingBottom = '10px';
-    
-    const title = document.createElement('h2');
-    title.textContent = 'Histórico de Versões';
-    title.style.margin = '0';
-    title.style.color = '#333';
-    
-    const closeButton = document.createElement('button');
-    closeButton.innerHTML = '&times;';
-    closeButton.style.background = 'none';
-    closeButton.style.border = 'none';
-    closeButton.style.fontSize = '24px';
-    closeButton.style.cursor = 'pointer';
-    closeButton.style.color = '#777';
-    closeButton.onclick = function() {
-        document.body.removeChild(overlay);
-    };
-    
-    header.appendChild(title);
-    header.appendChild(closeButton);
-    historyContainer.appendChild(header);
-    
-    // Criar a lista de versões
-    const versionList = document.createElement('div');
-    
-    versionHistory.forEach((version, index) => {
-        const versionItem = document.createElement('div');
-        versionItem.style.padding = '15px';
-        versionItem.style.border = '1px solid #eee';
-        versionItem.style.borderRadius = '5px';
-        versionItem.style.marginBottom = '10px';
-        versionItem.style.cursor = 'pointer';
-        versionItem.style.transition = 'all 0.2s ease';
-        
-        versionItem.onmouseover = function() {
-            versionItem.style.borderColor = '#1abc9c';
-            versionItem.style.backgroundColor = 'rgba(26, 188, 156, 0.05)';
-        };
-        
-        versionItem.onmouseout = function() {
-            versionItem.style.borderColor = '#eee';
-            versionItem.style.backgroundColor = 'transparent';
-        };
-        
-        const versionHeader = document.createElement('div');
-        versionHeader.style.display = 'flex';
-        versionHeader.style.justifyContent = 'space-between';
-        versionHeader.style.alignItems = 'center';
-        
-        const versionName = document.createElement('strong');
-        versionName.textContent = version.name;
-        versionName.style.fontSize = '16px';
-        
-        const restoreButton = document.createElement('button');
-        restoreButton.textContent = 'Restaurar';
-        restoreButton.style.backgroundColor = '#1abc9c';
-        restoreButton.style.color = 'white';
-        restoreButton.style.border = 'none';
-        restoreButton.style.padding = '8px 12px';
-        restoreButton.style.borderRadius = '4px';
-        restoreButton.style.cursor = 'pointer';
-        restoreButton.onclick = function(e) {
-            e.stopPropagation();
-            restoreVersion(version);
-            document.body.removeChild(overlay);
-        };
-        
-        versionHeader.appendChild(versionName);
-        versionHeader.appendChild(restoreButton);
-        versionItem.appendChild(versionHeader);
-        
-        const versionDate = document.createElement('div');
-        const date = new Date(version.timestamp);
-        versionDate.textContent = `Criado em: ${date.toLocaleDateString()} às ${date.toLocaleTimeString()}`;
-        versionDate.style.color = '#777';
-        versionDate.style.fontSize = '14px';
-        versionDate.style.marginTop = '5px';
-        
-        versionItem.appendChild(versionDate);
-        versionList.appendChild(versionItem);
-    });
-    
-    historyContainer.appendChild(versionList);
-    overlay.appendChild(historyContainer);
-    document.body.appendChild(overlay);
-}
-
-// Função para restaurar uma versão específica
-function restoreVersion(version) {
-    const resumeContent = document.getElementById("resume");
-    resumeContent.innerHTML = version.content;
-    applyDefaultFormatting();
-    mostrarAlertaPersonalizado("✅ Versão Restaurada", "A versão selecionada foi restaurada com sucesso!");
-}  let quality = document.querySelector('input[name="quality"]:checked');
+    // Obter a qualidade selecionada
+    let quality = document.querySelector('input[name="quality"]:checked');
     let dpi = 500; // Padrão
     
     if (quality) {
@@ -181,22 +43,63 @@ function restoreVersion(version) {
         }
     }
 
-    html2pdf(content, {
-        filename: 'currículo.pdf', // Nome do arquivo
-        pageSize: 'a4', // Tamanho da página A4
-        html2canvas: { scale: 1, logging: true, dpi: dpi },
-        pagebreak: { mode: 'avoid-all' }
-    }).then(() => {
+    // Configurações mais simples para evitar PDF em branco
+    const options = {
+        margin: 1,
+        filename: 'currículo.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+            scale: 1,
+            logging: true,
+            dpi: dpi,
+            letterRendering: true,
+            useCORS: true
+        },
+        jsPDF: { 
+            unit: 'in', 
+            format: 'a4', 
+            orientation: 'portrait' 
+        }
+    };
+
+    // Gerar PDF com configurações simplificadas
+    html2pdf().set(options).from(content).save().then(() => {
+        // Restaurar estado original
+        content.style.cssText = originalStyle;
+        content.className = originalClass;
+        
+        // Restaurar elementos ocultos
         allButtons.forEach(button => {
             button.style.display = "inline-block";
         });
         allInputCheckboxes.forEach(input => {
             input.style.display = "inline-block";
         });
-        mostrarAlertaPersonalizado("✅ PDF Gerado!", "O PDF foi criado com sucesso!");
-    }).catch(() => {
+        
+        mostrarAlertaPersonalizado("✅ PDF Gerado!", "O PDF foi criado com sucesso em formato desktop!");
+    }).catch((error) => {
+        // Restaurar estado original em caso de erro
+        content.style.cssText = originalStyle;
+        content.className = originalClass;
+        
+        allButtons.forEach(button => {
+            button.style.display = "inline-block";
+        });
+        allInputCheckboxes.forEach(input => {
+            input.style.display = "inline-block";
+        });
+        
+        console.error("Erro ao gerar PDF:", error);
         mostrarAlertaPersonalizado("⚠️ Erro!", "Ocorreu um erro ao gerar o PDF. Tente novamente.");
     });
+}
+                input.style.display = "inline-block";
+            });
+            
+            console.error("Erro ao gerar PDF:", error);
+            mostrarAlertaPersonalizado("⚠️ Erro!", "Ocorreu um erro ao gerar o PDF. Tente novamente.");
+        });
+    }, 100); // Pequeno delay para aplicar estilos
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -572,15 +475,160 @@ function loadFromLocalStorage() {
     mostrarAlertaPersonalizado("✅ Sucesso!", "Dados recuperados com sucesso!");
 }
 
-  // Função para garantir que a formatação padrão seja aplicada
-  function applyDefaultFormatting() {
+// Função para garantir que a formatação padrão seja aplicada
+function applyDefaultFormatting() {
     // Certifique-se de que todos os elementos tenham as classes e estilos corretos
     document.querySelectorAll(".input-checkbox").forEach(input => {
-      input.style.display = "inline-block"; // Exemplo de ajuste de estilo
+        input.style.display = "inline-block"; // Exemplo de ajuste de estilo
     });
-  
-    // Adicione quaisquer outras correções de formatação aqui
-  }
+    
+    // Garantir que as seções arrastáveis tenham os manipuladores corretos
+    document.querySelectorAll('.drag-section').forEach(section => {
+        // Verificar se já não está configurado
+        if (!section.hasAttribute('draggable')) {
+            // Chamar a função do arquivo drag-and-drop.js
+            if (typeof setupDraggableSection === 'function') {
+                setupDraggableSection(section);
+            }
+        }
+    });
+}
+
+// Função para exibir o histórico de versões
+function loadVersionHistory() {
+    const versionHistory = JSON.parse(localStorage.getItem("versionHistory")) || [];
+    
+    if (versionHistory.length === 0) {
+        mostrarAlertaPersonalizado("⚠️ Histórico Vazio", "Não há versões salvas no histórico.");
+        return;
+    }
+    
+    // Criar o overlay
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    overlay.style.display = 'flex';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.zIndex = '1100';
+    
+    // Criar o contêiner do histórico
+    const historyContainer = document.createElement('div');
+    historyContainer.style.backgroundColor = '#fff';
+    historyContainer.style.padding = '20px';
+    historyContainer.style.borderRadius = '10px';
+    historyContainer.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+    historyContainer.style.maxWidth = '600px';
+    historyContainer.style.width = '90%';
+    historyContainer.style.maxHeight = '80vh';
+    historyContainer.style.overflowY = 'auto';
+    
+    // Criar o cabeçalho
+    const header = document.createElement('div');
+    header.style.display = 'flex';
+    header.style.justifyContent = 'space-between';
+    header.style.alignItems = 'center';
+    header.style.marginBottom = '20px';
+    header.style.borderBottom = '2px solid #1abc9c';
+    header.style.paddingBottom = '10px';
+    
+    const title = document.createElement('h2');
+    title.textContent = 'Histórico de Versões';
+    title.style.margin = '0';
+    title.style.color = '#333';
+    
+    const closeButton = document.createElement('button');
+    closeButton.innerHTML = '&times;';
+    closeButton.style.background = 'none';
+    closeButton.style.border = 'none';
+    closeButton.style.fontSize = '24px';
+    closeButton.style.cursor = 'pointer';
+    closeButton.style.color = '#777';
+    closeButton.onclick = function() {
+        document.body.removeChild(overlay);
+    };
+    
+    header.appendChild(title);
+    header.appendChild(closeButton);
+    historyContainer.appendChild(header);
+    
+    // Criar a lista de versões
+    const versionList = document.createElement('div');
+    
+    versionHistory.forEach((version, index) => {
+        const versionItem = document.createElement('div');
+        versionItem.style.padding = '15px';
+        versionItem.style.border = '1px solid #eee';
+        versionItem.style.borderRadius = '5px';
+        versionItem.style.marginBottom = '10px';
+        versionItem.style.cursor = 'pointer';
+        versionItem.style.transition = 'all 0.2s ease';
+        
+        versionItem.onmouseover = function() {
+            versionItem.style.borderColor = '#1abc9c';
+            versionItem.style.backgroundColor = 'rgba(26, 188, 156, 0.05)';
+        };
+        
+        versionItem.onmouseout = function() {
+            versionItem.style.borderColor = '#eee';
+            versionItem.style.backgroundColor = 'transparent';
+        };
+        
+        const versionHeader = document.createElement('div');
+        versionHeader.style.display = 'flex';
+        versionHeader.style.justifyContent = 'space-between';
+        versionHeader.style.alignItems = 'center';
+        
+        const versionName = document.createElement('strong');
+        versionName.textContent = version.name;
+        versionName.style.fontSize = '16px';
+        
+        const restoreButton = document.createElement('button');
+        restoreButton.textContent = 'Restaurar';
+        restoreButton.style.backgroundColor = '#1abc9c';
+        restoreButton.style.color = 'white';
+        restoreButton.style.border = 'none';
+        restoreButton.style.padding = '8px 12px';
+        restoreButton.style.borderRadius = '4px';
+        restoreButton.style.cursor = 'pointer';
+        restoreButton.onclick = function(e) {
+            e.stopPropagation();
+            restoreVersion(version);
+            document.body.removeChild(overlay);
+        };
+        
+        versionHeader.appendChild(versionName);
+        versionHeader.appendChild(restoreButton);
+        versionItem.appendChild(versionHeader);
+        
+        const versionDate = document.createElement('div');
+        const date = new Date(version.timestamp);
+        versionDate.textContent = `Criado em: ${date.toLocaleDateString()} às ${date.toLocaleTimeString()}`;
+        versionDate.style.color = '#777';
+        versionDate.style.fontSize = '14px';
+        versionDate.style.marginTop = '5px';
+        
+        versionItem.appendChild(versionDate);
+        versionList.appendChild(versionItem);
+    });
+    
+    historyContainer.appendChild(versionList);
+    overlay.appendChild(historyContainer);
+    document.body.appendChild(overlay);
+}
+
+// Função para restaurar uma versão específica
+function restoreVersion(version) {
+    const resumeContent = document.getElementById("resume");
+    resumeContent.innerHTML = version.content;
+    applyDefaultFormatting();
+    mostrarAlertaPersonalizado("✅ Versão Restaurada", "A versão selecionada foi restaurada com sucesso!");
+}
+
 function toggleMenu() {
     const mobileNav = document.getElementById("mobileNav");
     const hamburgerMenu = document.getElementById("hamburgerMenu");

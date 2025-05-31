@@ -1,21 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@500&display=swap');
 
+:root {
+  --primary-color: #1abc9c;
+  --secondary-color: #333;
+  --font-main: 'Raleway', sans-serif;
+  --font-heading: 'Barlow', sans-serif;
+  --box-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --box-shadow-medium: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
 * {
     margin: 0;
     padding: 0;
     font-weight: 500;
     font-size: 14px;
+    box-sizing: border-box;
 }
 
 body {
     background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-    font-family: 'Raleway', sans-serif;
+    font-family: var(--font-main);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 20px;
+    transition: background 0.3s ease;
+}
+
+/* Quando o menu está aberto no mobile */
+body.menu-open {
+    overflow: hidden;
 }
 
 .none {
@@ -27,8 +44,15 @@ body {
     max-width: 1200px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow-light);
     padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 60px auto 60px;
+}
+
+.resume:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-medium);
 }
 
 #print {
@@ -38,6 +62,23 @@ body {
     overflow: hidden; 
 }
 
+/* Animação e estilo para campos editáveis */
+[contenteditable="true"] {
+    border-bottom: 1px dashed transparent;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+[contenteditable="true"]:hover {
+    border-bottom-color: var(--primary-color);
+}
+
+[contenteditable="true"].editing {
+    background-color: rgba(26, 188, 156, 0.1);
+    border-bottom-color: var(--primary-color);
+}
+
 .head {
     display: grid;
     grid-template-columns: 3fr 1.5fr;
@@ -45,18 +86,22 @@ body {
 
 .head .main .name {
     font-size: 55px;
-    font-family: 'Raleway', sans-serif;
+    font-family: var(--font-heading);
+    transition: color 0.3s ease;
 }
 
 .head .main span:nth-child(2) {
     color: rgb(100, 100, 100);
     font-size: 55px;
-    font-family: 'Raleway', sans-serif;
+    font-family: var(--font-heading);
     margin-left: 5px;
 }
 
 .head .main .post {
-    font-family: 'Barlow', sans-serif;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    color: var(--secondary-color);
+    margin-top: 5px;
 }
 
 .contacts {
@@ -73,13 +118,18 @@ body {
 
 .contact-item .symbol {
     font-size: 18px; /* Tamanho dos ícones */
-    color: #1abc9c; /* Cor dos ícones */
+    color: var(--primary-color); /* Cor dos ícones */
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover .symbol {
+    transform: scale(1.2);
 }
 
 .contact-item .content {
     font-size: 14px; /* Tamanho do texto */
     font-weight: 500; /* Peso do texto */
-    color: #333; /* Cor do texto */
+    color: var(--secondary-color); /* Cor do texto */
 }
 
 .line {
@@ -110,7 +160,29 @@ body {
     font-size: 18px;
     border: none;
     padding-bottom: 3px;
-    border-bottom: 2px #1abc9c solid;
+    border-bottom: 2px var(--primary-color) solid;
+    display: inline-block;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.title:hover {
+    transform: translateX(5px);
+}
+
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+.title:hover::after {
+    width: 100%;
 }
 
 .skill {
@@ -138,6 +210,7 @@ button {
     font-size: 17px;
 }
 
+/* Navbtn removido - botões antigos da navegação
 .navbtn {
     position: fixed;
     top: 20%;
@@ -148,8 +221,22 @@ button {
     border-radius: 50%;
     border: #fff 2px solid;
     transition: 300ms ease-in-out;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    box-shadow: var(--box-shadow-light);
     z-index: 1000;
+    background-color: white;
+    color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbtn i {
+    font-size: 22px;
+    transition: transform 0.3s ease;
+}
+
+.navbtn:hover i {
+    transform: scale(1.2);
 }
 
 .navbtn:nth-child(1) {
@@ -170,15 +257,26 @@ button {
 
 
 .navbtn:hover {
-    background-color: black;
+    background-color: var(--primary-color);
     color: #fff;
-    border: #000 2px solid;
+    border: var(--primary-color) 2px solid;
     height: 65px;
     width: 65px;
+    box-shadow: var(--box-shadow-medium);
 }
+*/
 
 .input-checkbox {
     margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.input-checkbox:hover {
+    transform: scale(1.1);
 }
 
 .education-head {
@@ -209,7 +307,7 @@ button {
 @media screen and (max-width: 480px) {
     .resume {
         width: 95%;
-        margin-top: 10px;
+        margin: 10px auto 60px;
         padding: 15px;
     }
 
@@ -253,47 +351,86 @@ button {
         height: auto; 
     }
     
-
     .mainbody .border {
         display: none; 
     }
 
     .mainbody .rightside {
         padding-left: 0;
+        margin-top: 20px;
     }
 
     .title {
-        font-size: 14px; 
+        font-size: 16px; 
+        padding-bottom: 5px;
+        margin-bottom: 10px;
     }
 
- .experience, .skills, .projects {
-        padding: 3px;
-        margin-bottom: 4px;
+    .experience, .skills, .projects {
+        padding: 10px;
+        margin-bottom: 15px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
     }
-
 
     .section-container {
-        padding: 5px; 
+        padding: 10px; 
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        margin-bottom: 15px;
     }
 
     .section-container label {
-        font-size: 12px;
+        font-size: 14px;
+        display: block;
+        margin-bottom: 5px;
     }
 
     .section-container input,
     .section-container button {
         width: 100%;
-        font-size: 12px; 
-        margin-bottom: 5px;
-        padding: 5px 8px; 
+        font-size: 14px; 
+        margin-bottom: 10px;
+        padding: 8px 12px; 
+        border-radius: 4px;
     }
 
+    .btn {
+        padding: 8px 12px;
+        font-size: 14px;
+        margin: 5px 0;
+    }
+
+    /* Ocultar a navegação padrão em dispositivos móveis */
     .nav {
-       
         display: none;
-       
     }
     
+    /* Ajustes para o perfil em dispositivos móveis */
+    .profile-image-container {
+        margin-bottom: 15px;
+    }
+    
+    .profile-image-label img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    /* Melhorar visualização dos botões de adicionar/remover */
+    .btn-outline-success, .btn-outline-danger {
+        display: inline-block;
+        width: calc(50% - 5px);
+        text-align: center;
+        padding: 8px 0;
+    }
+    
+    /* Espaçamento entre seções */
+    .leftside > div, .rightside > div {
+        margin-bottom: 20px;
+    }
+}
+    
+/* Navbtn para dispositivos móveis - removidos
     .navbtn {
         position: relative;
         top: auto;
@@ -331,6 +468,7 @@ button {
         width: 45px;
         background-color: gray; 
     }
+*/
     
   
     .content {
@@ -347,9 +485,11 @@ button {
         margin-left: 5px;
     }
     
+/* Removido navbtn[href]
     .navbtn[href] {
         display: none;
     }
+*/
     
     .edublock, .skill, .language, .achieve {
         font-size: 14px;
@@ -368,10 +508,7 @@ button {
         .new-page {
             break-before: page; 
         }
-        
     }
-    
-}
 
 @media screen and (max-width: 768px) {
     .resume {
